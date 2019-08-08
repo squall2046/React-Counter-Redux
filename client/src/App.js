@@ -1,39 +1,37 @@
 import React, { Component } from "react";
 // import API from "./utils/API";
 import "./App.css";
-import { INCREMENT, DECREMENT } from "./redux/action-types";
+// import { increment, decrement } from "./redux/actions"
+import * as action from "./redux/actions"
 
 export default class App extends Component {
 
   increment = () => {
     // 1. get <select> option
+    // const number = parseInt(this.select.value)
     const number = this.select.value * 1
-    // 注意!!! value*1 是因为 value 是一个 string,
-    // 要想让它做 count, 必须是 int 或 float,
-    // 所以让它 *1, JavaScript 会把 string 变成 int
-    // when string 和 int 两种 type 做加减乘除时.
-    // 相当于, parseInt(this.select.value) 的捷径.
-
     // 2. get state from store, set new count state
-    this.props.store.dispatch({ type: INCREMENT, data: number })
+    this.props.store.dispatch(action.increment(number))
   }
+
   decrement = () => {
     const number = this.select.value * 1
-    this.props.store.dispatch({ type: DECREMENT, data: number })
-
+    this.props.store.dispatch(action.decrement(number))
   }
+
   incrementIfOdd = () => {
     const number = this.select.value * 1
     const count = this.props.store.getState()
     if (count % 2 === 1) {
-      this.props.store.dispatch({ type: INCREMENT, data: number })
+      this.props.store.dispatch(action.increment(number))
     }
   }
+
   incrementAsync = () => {
     const number = this.select.value * 1
     // const count = this.props.store.getState()
     setTimeout(() => {
-      this.props.store.dispatch({ type: INCREMENT, data: number })
+      this.props.store.dispatch(action.increment(number))
     }, 1000)
   }
 
